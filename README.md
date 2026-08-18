@@ -95,11 +95,15 @@ The project uses the **Diabetic Retinopathy 224×224 (Gaussian Filtered)** datas
 | Balanced Accuracy | Pending | **52.80%** |
 | QWK | Pending | **81.02%** |
 
-![image alt](https://github.com/Fahadkhan2450/Evaluating-Vision-Transformers-for-Ordinal-Diabetic-Retinopathy-Classification-on-Fundus-Images/blob/e2ba14d25f01fd167cecb9680e64bd576b1f36b1/images/PHOTO-2026-08-18-10-24-45.jpg)
+<p align="center">
+  <img src="images/PHOTO-2026-08-18-10-24-45.jpg" width="500">
+</p>
 
 An earlier Swin-Tiny checkpoint reached **74.9% accuracy** with **QWK = 0.8545**, indicating some run-to-run variance between training runs.
 
-![iamge alt](https://github.com/Fahadkhan2450/Evaluating-Vision-Transformers-for-Ordinal-Diabetic-Retinopathy-Classification-on-Fundus-Images/blob/e2ba14d25f01fd167cecb9680e64bd576b1f36b1/images/PHOTO-2026-08-18-10-24-08.jpg)
+<p align="center">
+  <img src="images/PHOTO-2026-08-18-10-24-08.jpg" width="500">
+</p>
 
 **Finding:** Swin-Tiny outperformed the EfficientNet baseline by approximately **5–7 percentage points** in validation accuracy, suggesting hierarchical self-attention captures more effective retinal feature representations than the evaluated EfficientNet configuration.
 
