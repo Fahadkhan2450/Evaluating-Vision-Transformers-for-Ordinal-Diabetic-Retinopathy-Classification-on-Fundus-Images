@@ -95,7 +95,7 @@ The project uses the **Diabetic Retinopathy 224×224 (Gaussian Filtered)** datas
 
 | Metric | TF-EfficientNet | Swin-Tiny |
 |---|---:|---:|
-| Validation Accuracy | ~70% | **77.22%** |
+| Validation Accuracy | ~84.97% | **79.42%** |
 | Macro-F1 | Pending | **53.42%** |
 | Balanced Accuracy | Pending | **52.80%** |
 | QWK | Pending | **81.02%** |
@@ -169,7 +169,7 @@ An earlier Swin-Tiny checkpoint reached **74.9% accuracy** with **QWK = 0.8545**
 
 ## 10. Conclusion
 
-Swin Transformer-Tiny outperformed the TF-EfficientNet baseline (**77.22% vs. ~70%** validation accuracy) on five-class DR classification, indicating that hierarchical transformer representations are a promising direction for retinal image analysis. However, the comparatively low Macro-F1 and balanced accuracy confirm that **minority-class recognition remains the primary bottleneck**. The future-work items above — particularly class-imbalance handling, cross-validation, and independent test-set evaluation — should be addressed before drawing final conclusions.
+Swin Transformer-Tiny outperformed the TF-EfficientNet baseline (**84.97% vs. ~79.42%** validation accuracy) on five-class DR classification, indicating that hierarchical transformer representations are a promising direction for retinal image analysis. However, the comparatively low Macro-F1 and balanced accuracy confirm that **minority-class recognition remains the primary bottleneck**. The future-work items above — particularly class-imbalance handling, cross-validation, and independent test-set evaluation — should be addressed before drawing final conclusions.
 
 ---
 
