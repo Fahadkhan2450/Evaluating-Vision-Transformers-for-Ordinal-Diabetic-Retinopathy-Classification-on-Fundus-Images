@@ -81,7 +81,7 @@ The project uses the **Diabetic Retinopathy 224×224 (Gaussian Filtered)** datas
 | 8 | Multi-metric evaluation |
 
 **Evaluation metrics:** Accuracy, Balanced Accuracy, Macro-F1, Quadratic Weighted Kappa (QWK), confusion matrix, and per-class precision / recall / F1. QWK and balanced accuracy are prioritized over raw accuracy given the ordinal, imbalanced nature of the task.
-![Uploading image.png…]()
+
 
 
 ---
@@ -95,7 +95,11 @@ The project uses the **Diabetic Retinopathy 224×224 (Gaussian Filtered)** datas
 | Balanced Accuracy | Pending | **52.80%** |
 | QWK | Pending | **81.02%** |
 
+![image alt](https://github.com/Fahadkhan2450/Evaluating-Vision-Transformers-for-Ordinal-Diabetic-Retinopathy-Classification-on-Fundus-Images/blob/e2ba14d25f01fd167cecb9680e64bd576b1f36b1/images/PHOTO-2026-08-18-10-24-45.jpg)
+
 An earlier Swin-Tiny checkpoint reached **74.9% accuracy** with **QWK = 0.8545**, indicating some run-to-run variance between training runs.
+
+![iamge alt](https://github.com/Fahadkhan2450/Evaluating-Vision-Transformers-for-Ordinal-Diabetic-Retinopathy-Classification-on-Fundus-Images/blob/e2ba14d25f01fd167cecb9680e64bd576b1f36b1/images/PHOTO-2026-08-18-10-24-08.jpg)
 
 **Finding:** Swin-Tiny outperformed the EfficientNet baseline by approximately **5–7 percentage points** in validation accuracy, suggesting hierarchical self-attention captures more effective retinal feature representations than the evaluated EfficientNet configuration.
 
