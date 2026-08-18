@@ -8,13 +8,6 @@
   A comparative deep learning study benchmarking <b>EfficientNet</b> and <b>Swin Transformer-Tiny</b> for five-class diabetic retinopathy severity classification on retinal fundus images from the <b>APTOS 2019</b> dataset.
 </p>
 
-<p align="center">
-  <img alt="Python" src="https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white">
-  <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-DeepLearning-EE4C2C?logo=pytorch&logoColor=white">
-  <img alt="timm" src="https://img.shields.io/badge/timm-pretrained--models-333333">
-  <img alt="Status" src="https://img.shields.io/badge/status-research--in--progress-yellow">
-</p>
-
 ---
 
 ## Table of Contents
@@ -27,8 +20,7 @@
 6. [Key Findings](#6-key-findings)
 7. [Future Work](#7-future-work)
 8. [Technologies](#8-technologies)
-9. [Project Structure](#9-project-structure)
-10. [Conclusion](#10-conclusion)
+9. [Conclusion](#10-conclusion)
 
 ---
 
