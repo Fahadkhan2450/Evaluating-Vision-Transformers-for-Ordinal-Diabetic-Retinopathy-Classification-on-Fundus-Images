@@ -81,6 +81,8 @@ The project uses the **Diabetic Retinopathy 224×224 (Gaussian Filtered)** datas
 | 8 | Multi-metric evaluation |
 
 **Evaluation metrics:** Accuracy, Balanced Accuracy, Macro-F1, Quadratic Weighted Kappa (QWK), confusion matrix, and per-class precision / recall / F1. QWK and balanced accuracy are prioritized over raw accuracy given the ordinal, imbalanced nature of the task.
+![Uploading image.png…]()
+
 
 ---
 
