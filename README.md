@@ -104,8 +104,6 @@ An earlier Swin-Tiny checkpoint reached **74.9% accuracy** with **QWK = 0.8545**
 
 **Finding:** Swin-Tiny outperformed the EfficientNet baseline by approximately **5–7 percentage points** in validation accuracy, suggesting hierarchical self-attention captures more effective retinal feature representations than the evaluated EfficientNet configuration.
 
-> ⚠️ **Note:** EfficientNet metrics marked "Pending" should be completed on the final checkpoint before formal publication of the comparison.
-
 ---
 
 ## 5. Training Configuration — Swin Transformer
