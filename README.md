@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="images/1.jpg" width="450" alt="Diabetic Retinopathy Classification">
+  <img src="images/1.jpg" width="500" alt="Diabetic Retinopathy Classification">
 </p>
 ---
 
@@ -39,13 +39,13 @@ Two transfer-learning architectures were evaluated under a consistent experiment
 **Objective:** determine whether transformer-based visual representation learning provides improved performance over a convolutional baseline for retinal disease severity classification.
 
 <p align="center">
-  <img src="images/2.jpg" width="600">
+  <img src="images/2.jpg" width="450">
 </p>
 <p align="center">
-  <img src="images/3.jpg" width="600">
+  <img src="images/3.jpg" width="450">
 </p>
 <p align="center">
-  <img src="images/4.jpg" width="600">
+  <img src="images/4.jpg" width="450">
 </p>
 
 ---
@@ -96,13 +96,13 @@ The project uses the **Diabetic Retinopathy 224×224 (Gaussian Filtered)** datas
 | QWK | Pending | **81.02%** |
 
 <p align="center">
-  <img src="images/PHOTO-2026-08-18-10-24-45.jpg" width="500">
+  <img src="images/PHOTO-2026-08-18-10-24-45.jpg" width="450">
 </p>
 
 An earlier Swin-Tiny checkpoint reached **74.9% accuracy** with **QWK = 0.8545**, indicating some run-to-run variance between training runs.
 
 <p align="center">
-  <img src="images/PHOTO-2026-08-18-10-24-08.jpg" width="500">
+  <img src="images/PHOTO-2026-08-18-10-24-08.jpg" width="450">
 </p>
 
 **Finding:** Swin-Tiny outperformed the EfficientNet baseline by approximately **5–7 percentage points** in validation accuracy, suggesting hierarchical self-attention captures more effective retinal feature representations than the evaluated EfficientNet configuration.
