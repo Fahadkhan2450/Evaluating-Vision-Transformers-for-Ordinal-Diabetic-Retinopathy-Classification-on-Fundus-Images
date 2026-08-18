@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="images/1.jpg" width="650" alt="Diabetic Retinopathy Classification">
-</p>
+
 
 <h1 align="center">Evaluating Vision Transformers for Ordinal Diabetic Retinopathy Classification on Fundus Images</h1>
 
@@ -8,6 +6,9 @@
   A comparative deep learning study benchmarking <b>EfficientNet</b> and <b>Swin Transformer-Tiny</b> for five-class diabetic retinopathy severity classification on retinal fundus images from the <b>APTOS 2019</b> dataset.
 </p>
 
+<p align="center">
+  <img src="images/1.jpg" width="450" alt="Diabetic Retinopathy Classification">
+</p>
 ---
 
 ## Table of Contents
