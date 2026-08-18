@@ -1,1 +1,1638 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Diabetic Retinopathy Classification
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4f7fb,
+                    #eaf1ff
+                );
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 30px;
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+           ===================================================== */
+
+        .container {
+
+            width: 100%;
+
+            max-width: 900px;
+
+            background: white;
+
+            border-radius: 24px;
+
+            padding: 45px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .header h1 {
+
+            font-size: 32px;
+
+            color: #172033;
+
+            margin-bottom: 12px;
+        }
+
+
+        .header p {
+
+            color: #667085;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+
+            max-width: 650px;
+
+            margin: auto;
+        }
+
+
+        .model-badge {
+
+            display: inline-block;
+
+            margin-top: 15px;
+
+            padding: 7px 14px;
+
+            background: #eef4ff;
+
+            color: #2563eb;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           UPLOAD AREA
+           ===================================================== */
+
+        .upload-area {
+
+            border: 2px dashed #94a3b8;
+
+            border-radius: 18px;
+
+            padding: 45px 25px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            background: #f8fafc;
+
+            transition:
+                border-color 0.25s,
+                background 0.25s,
+                transform 0.25s;
+
+            display: block;
+        }
+
+
+        .upload-area:hover {
+
+            border-color: #2563eb;
+
+            background: #f5f9ff;
+
+            transform: translateY(-2px);
+        }
+
+
+        .upload-icon {
+
+            font-size: 45px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .upload-area h3 {
+
+            color: #344054;
+
+            font-size: 19px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .upload-area p {
+
+            color: #667085;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        #imageInput {
+
+            display: none;
+        }
+
+
+        /* =====================================================
+           IMAGE PREVIEW
+           ===================================================== */
+
+        .preview-container {
+
+            display: none;
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #f8fafc;
+
+            border-radius: 16px;
+
+            text-align: center;
+        }
+
+
+        .preview-title {
+
+            color: #344054;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 15px;
+        }
+
+
+        #preview {
+
+            max-width: 100%;
+
+            max-height: 400px;
+
+            object-fit: contain;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 25px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        .file-info {
+
+            margin-top: 12px;
+
+            color: #667085;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           BUTTON
+           ===================================================== */
+
+        .predict-btn {
+
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s,
+                transform 0.2s;
+        }
+
+
+        .predict-btn:hover:not(:disabled) {
+
+            background: #1d4ed8;
+
+            transform: translateY(-1px);
+        }
+
+
+        .predict-btn:disabled {
+
+            background: #a8b1c0;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           LOADING
+           ===================================================== */
+
+        .loading {
+
+            display: none;
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #2563eb;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .spinner {
+
+            display: inline-block;
+
+            width: 18px;
+
+            height: 18px;
+
+            border: 3px solid #dbeafe;
+
+            border-top-color: #2563eb;
+
+            border-radius: 50%;
+
+            animation:
+                spin 0.8s linear infinite;
+
+            vertical-align: middle;
+
+            margin-right: 8px;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        /* =====================================================
+           ERROR
+           ===================================================== */
+
+        .error {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 16px;
+
+            border-radius: 12px;
+
+            background: #fef2f2;
+
+            border: 1px solid #fecaca;
+
+            color: #b91c1c;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            white-space: pre-wrap;
+        }
+
+
+        /* =====================================================
+           RESULT
+           ===================================================== */
+
+        .result {
+
+            display: none;
+
+            margin-top: 30px;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+        }
+
+
+        .result-title {
+
+            text-align: center;
+
+            color: #172033;
+
+            margin-bottom: 20px;
+
+            font-size: 20px;
+        }
+
+
+        .prediction {
+
+            text-align: center;
+
+            font-size: 32px;
+
+            font-weight: 800;
+
+            color: #2563eb;
+
+            margin-bottom: 8px;
+        }
+
+
+        .confidence {
+
+            text-align: center;
+
+            color: #475467;
+
+            font-size: 15px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =====================================================
+           PROBABILITIES
+           ===================================================== */
+
+        .probability {
+
+            margin-bottom: 18px;
+        }
+
+
+        .probability-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+
+            color: #344054;
+        }
+
+
+        .probability-name {
+
+            font-weight: 600;
+        }
+
+
+        .probability-value {
+
+            font-weight: 600;
+
+            color: #475467;
+        }
+
+
+        .bar {
+
+            width: 100%;
+
+            height: 10px;
+
+            background: #e5e7eb;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .fill {
+
+            height: 100%;
+
+            width: 0%;
+
+            background: #2563eb;
+
+            border-radius: 20px;
+
+            transition:
+                width 0.8s ease;
+        }
+
+
+        /* =====================================================
+           DISCLAIMER
+           ===================================================== */
+
+        .disclaimer {
+
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: #98a2b3;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+
+            .container {
+
+                padding: 25px;
+
+                border-radius: 18px;
+            }
+
+
+            .header h1 {
+
+                font-size: 25px;
+            }
+
+
+            .upload-area {
+
+                padding: 35px 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="header">
+
+        <h1>
+            Diabetic Retinopathy Classification
+        </h1>
+
+
+        <p>
+
+            Upload a retinal fundus image
+            to classify diabetic retinopathy
+            severity using a pretrained
+            Swin Transformer-Tiny model.
+
+        </p>
+
+
+        <span class="model-badge">
+
+            Swin Transformer-Tiny
+
+        </span>
+
+    </div>
+
+
+    <!-- =====================================================
+         UPLOAD
+         ===================================================== -->
+
+    <label
+        for="imageInput"
+        class="upload-area"
+    >
+
+        <div class="upload-icon">
+            🩺
+        </div>
+
+
+        <h3>
+            Upload Retinal Image
+        </h3>
+
+
+        <p>
+
+            Click here to select an image
+
+            <br>
+
+            Supported formats:
+            JPG, JPEG, PNG, WEBP
+
+        </p>
+
+    </label>
+
+
+    <input
+        type="file"
+        id="imageInput"
+        accept="image/jpeg,image/jpg,image/png,image/webp"
+    >
+
+
+    <!-- =====================================================
+         PREVIEW
+         ===================================================== -->
+
+    <div
+        class="preview-container"
+        id="previewContainer"
+    >
+
+        <div class="preview-title">
+
+            Selected Retinal Image
+
+        </div>
+
+
+        <img
+            id="preview"
+            alt="Retinal image preview"
+        >
+
+
+        <div
+            class="file-info"
+            id="fileInfo"
+        ></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PREDICT BUTTON
+         ===================================================== -->
+
+    <button
+        class="predict-btn"
+        id="predictBtn"
+        disabled
+    >
+
+        Analyze Retinal Image
+
+    </button>
+
+
+    <!-- =====================================================
+         LOADING
+         ===================================================== -->
+
+    <div
+        class="loading"
+        id="loading"
+    >
+
+        <span class="spinner"></span>
+
+        Analyzing retinal image...
+
+    </div>
+
+
+    <!-- =====================================================
+         ERROR
+         ===================================================== -->
+
+    <div
+        class="error"
+        id="error"
+    ></div>
+
+
+    <!-- =====================================================
+         RESULT
+         ===================================================== -->
+
+    <div
+        class="result"
+        id="result"
+    >
+
+        <div class="result-title">
+
+            Classification Result
+
+        </div>
+
+
+        <div
+            class="prediction"
+            id="prediction"
+        >
+
+        </div>
+
+
+        <div
+            class="confidence"
+            id="confidence"
+        >
+
+        </div>
+
+
+        <div
+            id="probabilities"
+        >
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         DISCLAIMER
+         ===================================================== -->
+
+    <div class="disclaimer">
+
+        This application is intended for
+        research and educational purposes only.
+        It does not provide medical diagnosis
+        and should not replace evaluation by
+        a qualified healthcare professional.
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+// ============================================================
+// GET ELEMENTS
+// ============================================================
+
+const imageInput =
+    document.getElementById(
+        "imageInput"
+    );
+
+
+const preview =
+    document.getElementById(
+        "preview"
+    );
+
+
+const previewContainer =
+    document.getElementById(
+        "previewContainer"
+    );
+
+
+const fileInfo =
+    document.getElementById(
+        "fileInfo"
+    );
+
+
+const predictBtn =
+    document.getElementById(
+        "predictBtn"
+    );
+
+
+const loading =
+    document.getElementById(
+        "loading"
+    );
+
+
+const errorBox =
+    document.getElementById(
+        "error"
+    );
+
+
+const result =
+    document.getElementById(
+        "result"
+    );
+
+
+const prediction =
+    document.getElementById(
+        "prediction"
+    );
+
+
+const confidence =
+    document.getElementById(
+        "confidence"
+    );
+
+
+const probabilities =
+    document.getElementById(
+        "probabilities"
+    );
+
+
+// ============================================================
+// IMAGE SELECTION
+// ============================================================
+
+imageInput.addEventListener(
+    "change",
+    function () {
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "IMAGE SELECTED"
+        );
+
+        console.log(
+            "================================"
+        );
+
+
+        // ----------------------------------------------------
+        // Check file
+        // ----------------------------------------------------
+
+        if (
+            !this.files ||
+            this.files.length === 0
+        ) {
+
+            console.log(
+                "No file selected."
+            );
+
+
+            predictBtn.disabled =
+                true;
+
+            previewContainer.style.display =
+                "none";
+
+            return;
+        }
+
+
+        const file =
+            this.files[0];
+
+
+        console.log(
+            "Filename:",
+            file.name
+        );
+
+
+        console.log(
+            "File type:",
+            file.type
+        );
+
+
+        console.log(
+            "File size:",
+            file.size,
+            "bytes"
+        );
+
+
+        // ----------------------------------------------------
+        // Validate file type
+        // ----------------------------------------------------
+
+        const allowedTypes = [
+            "image/jpeg",
+            "image/jpg",
+            "image/png",
+            "image/webp"
+        ];
+
+
+        if (
+            !allowedTypes.includes(
+                file.type
+            )
+        ) {
+
+            showError(
+                "Please upload a JPG, JPEG, PNG or WEBP image."
+            );
+
+
+            predictBtn.disabled =
+                true;
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // Validate file size
+        // ----------------------------------------------------
+
+        const maxSize =
+            10 * 1024 * 1024;
+
+
+        if (
+            file.size > maxSize
+        ) {
+
+            showError(
+                "Image is too large. Maximum size is 10 MB."
+            );
+
+
+            predictBtn.disabled =
+                true;
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // Create preview
+        // ----------------------------------------------------
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function (event) {
+
+                preview.src =
+                    event.target.result;
+
+
+                previewContainer.style.display =
+                    "block";
+
+
+                fileInfo.textContent =
+                    file.name +
+                    " • " +
+                    formatFileSize(
+                        file.size
+                    );
+
+
+                console.log(
+                    "Preview created successfully."
+                );
+
+            };
+
+
+        reader.onerror =
+            function () {
+
+                showError(
+                    "Unable to preview this image."
+                );
+
+            };
+
+
+        reader.readAsDataURL(
+            file
+        );
+
+
+        // ----------------------------------------------------
+        // Enable prediction
+        // ----------------------------------------------------
+
+        predictBtn.disabled =
+            false;
+
+
+        // Clear previous state
+
+        result.style.display =
+            "none";
+
+
+        errorBox.style.display =
+            "none";
+
+    }
+);
+
+
+
+// ============================================================
+// PREDICTION
+// ============================================================
+
+predictBtn.addEventListener(
+    "click",
+    async function () {
+
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "STARTING PREDICTION"
+        );
+
+        console.log(
+            "================================"
+        );
+
+
+        const file =
+            imageInput.files[0];
+
+
+        // ----------------------------------------------------
+        // Check file
+        // ----------------------------------------------------
+
+        if (!file) {
+
+            showError(
+                "Please select an image first."
+            );
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // Create FormData
+        // ----------------------------------------------------
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "file",
+            file
+        );
+
+
+        console.log(
+            "Sending:",
+            file.name
+        );
+
+
+        console.log(
+            "Endpoint:",
+            "/predict"
+        );
+
+
+        // ----------------------------------------------------
+        // UI
+        // ----------------------------------------------------
+
+        loading.style.display =
+            "block";
+
+
+        predictBtn.disabled =
+            true;
+
+
+        errorBox.style.display =
+            "none";
+
+
+        result.style.display =
+            "none";
+
+
+        try {
+
+
+            // =================================================
+            // SEND REQUEST
+            // =================================================
+
+            const response =
+                await fetch(
+                    "/predict",
+                    {
+                        method: "POST",
+
+                        body: formData
+                    }
+                );
+
+
+            console.log(
+                "HTTP status:",
+                response.status
+            );
+
+
+            console.log(
+                "HTTP status text:",
+                response.statusText
+            );
+
+
+            console.log(
+                "Content-Type:",
+                response.headers.get(
+                    "content-type"
+                )
+            );
+
+
+            // =================================================
+            // READ RAW RESPONSE
+            //
+            // DO NOT USE response.json()
+            // =================================================
+
+            const responseText =
+                await response.text();
+
+
+            console.log(
+                "RAW SERVER RESPONSE:"
+            );
+
+
+            console.log(
+                responseText
+            );
+
+
+            // =================================================
+            // EMPTY RESPONSE
+            // =================================================
+
+            if (
+                !responseText ||
+                responseText.trim() === ""
+            ) {
+
+                throw new Error(
+
+                    "The server returned an empty response.\n\n" +
+
+                    "HTTP Status: " +
+                    response.status +
+
+                    "\n\n" +
+
+                    "Check the FastAPI terminal for errors."
+
+                );
+
+            }
+
+
+            // =================================================
+            // PARSE JSON
+            // =================================================
+
+            let data;
+
+
+            try {
+
+                data =
+                    JSON.parse(
+                        responseText
+                    );
+
+            }
+            catch (jsonError) {
+
+                console.error(
+                    "JSON parsing error:",
+                    jsonError
+                );
+
+
+                throw new Error(
+
+                    "The server did not return valid JSON.\n\n" +
+
+                    "Server response:\n" +
+
+                    responseText
+
+                );
+
+            }
+
+
+            console.log(
+                "Parsed API response:",
+                data
+            );
+
+
+            // =================================================
+            // API ERROR
+            // =================================================
+
+            if (
+                !response.ok ||
+                data.success !== true
+            ) {
+
+                throw new Error(
+
+                    data.error ||
+
+                    "Prediction failed."
+
+                );
+
+            }
+
+
+            // =================================================
+            // DISPLAY PREDICTION
+            // =================================================
+
+            prediction.textContent =
+                data.prediction;
+
+
+            confidence.textContent =
+
+                "Confidence: " +
+
+                Number(
+                    data.confidence
+                ).toFixed(2) +
+
+                "%";
+
+
+            // =================================================
+            // DISPLAY PROBABILITIES
+            // =================================================
+
+            probabilities.innerHTML =
+                "";
+
+
+            if (
+                data.probabilities
+            ) {
+
+
+                const entries =
+                    Object.entries(
+                        data.probabilities
+                    );
+
+
+                entries.forEach(
+                    function (
+                        [className, probability]
+                    ) {
+
+
+                        const wrapper =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        wrapper.className =
+                            "probability";
+
+
+                        const header =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        header.className =
+                            "probability-header";
+
+
+                        const name =
+                            document.createElement(
+                                "span"
+                            );
+
+
+                        name.className =
+                            "probability-name";
+
+
+                        name.textContent =
+                            formatClassName(
+                                className
+                            );
+
+
+                        const value =
+                            document.createElement(
+                                "span"
+                            );
+
+
+                        value.className =
+                            "probability-value";
+
+
+                        value.textContent =
+                            Number(
+                                probability
+                            ).toFixed(2) +
+                            "%";
+
+
+                        header.appendChild(
+                            name
+                        );
+
+
+                        header.appendChild(
+                            value
+                        );
+
+
+                        const bar =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        bar.className =
+                            "bar";
+
+
+                        const fill =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        fill.className =
+                            "fill";
+
+
+                        fill.style.width =
+                            "0%";
+
+
+                        bar.appendChild(
+                            fill
+                        );
+
+
+                        wrapper.appendChild(
+                            header
+                        );
+
+
+                        wrapper.appendChild(
+                            bar
+                        );
+
+
+                        probabilities.appendChild(
+                            wrapper
+                        );
+
+
+                        // Animate bar
+
+                        setTimeout(
+                            function () {
+
+                                fill.style.width =
+                                    Math.min(
+                                        Number(
+                                            probability
+                                        ),
+                                        100
+                                    ) +
+                                    "%";
+
+                            },
+                            100
+                        );
+
+                    }
+                );
+
+            }
+
+
+            // =================================================
+            // SHOW RESULT
+            // =================================================
+
+            result.style.display =
+                "block";
+
+
+            console.log(
+                "Prediction completed successfully."
+            );
+
+        }
+
+
+        catch (error) {
+
+
+            console.error(
+                "================================"
+            );
+
+
+            console.error(
+                "PREDICTION ERROR"
+            );
+
+
+            console.error(
+                error
+            );
+
+
+            console.error(
+                "================================"
+            );
+
+
+            showError(
+                error.message
+            );
+
+        }
+
+
+        finally {
+
+
+            loading.style.display =
+                "none";
+
+
+            predictBtn.disabled =
+                false;
+
+        }
+
+    }
+);
+
+
+
+// ============================================================
+// ERROR FUNCTION
+// ============================================================
+
+function showError(
+    message
+) {
+
+    errorBox.textContent =
+        message;
+
+
+    errorBox.style.display =
+        "block";
+
+
+    console.error(
+        "ERROR:",
+        message
+    );
+
+}
+
+
+
+// ============================================================
+// FORMAT FILE SIZE
+// ============================================================
+
+function formatFileSize(
+    bytes
+) {
+
+    if (
+        bytes === 0
+    ) {
+
+        return "0 Bytes";
+
+    }
+
+
+    const units = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+
+
+    const i =
+        Math.floor(
+            Math.log(bytes)
+            /
+            Math.log(1024)
+        );
+
+
+    return (
+
+        parseFloat(
+            (
+                bytes /
+                Math.pow(
+                    1024,
+                    i
+                )
+            ).toFixed(2)
+        )
+
+        +
+
+        " " +
+
+        units[i]
+
+    );
+
+}
+
+
+
+// ============================================================
+// FORMAT CLASS NAME
+// ============================================================
+
+function formatClassName(
+    name
+) {
+
+    const names = {
+
+        "No_DR":
+            "No Diabetic Retinopathy",
+
+        "Mild":
+            "Mild",
+
+        "Moderate":
+            "Moderate",
+
+        "Severe":
+            "Severe",
+
+        "Proliferate_DR":
+            "Proliferative DR"
+
+    };
+
+
+    return (
+        names[name] ||
+        name
+    );
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
