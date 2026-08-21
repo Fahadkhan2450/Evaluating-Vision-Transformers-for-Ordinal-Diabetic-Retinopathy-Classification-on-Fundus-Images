@@ -1,0 +1,49 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables / secrets
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Python cache / build
+*.egg-info/
+dist/
+build/
+
+# Large dataset files
+*.pkl
+*.csv
+*.zip
+*.tar
+*.tar.gz
+
+# Dataset folders
+archive (3)/
+data/
+datasets/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+
+# PyTorch model files
+# Do NOT add *.pth here because you need your model for deployment.
